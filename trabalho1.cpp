@@ -17,9 +17,9 @@ Data da entrega: 10/08/2022
 
 int main()//programa principal
 {	
-	int l,c,cont=1,primeiro=0,aux,menor,i,at,atc;
+	int k,l,c,cont=1,primeiro=0,aux,menor,i,at,atc;
 	int moda,a,j,v2[6],maior;
-	float tabela[5][8],k,soma=0,media=0,mediana=0;
+	float soma=0,media=0,mediana=0;
 	int tamanho;
 	
 	printf("Olá, para iniciar a construção da sua tabela de frequência insira o numero de elementos da amostra:");
@@ -65,12 +65,14 @@ int main()//programa principal
 	
 	printf("\n");
 	
-	k=ceil(sqrt(tamanho));
-	printf("\nK e igual: %.2f",k);
+	k=((int)(ceil(sqrt(tamanho))));
+	float tabela[k][8];
+	printf("\nK e igual: %d",k);
 	at=amostra[tamanho-1]-amostra[0];
 	printf("\nAT e igual: %d",at);
-	atc=ceil(at/k);
+	atc=ceil(at/((float)k));
 	printf("\nATC e igual: %d",atc);
+	
 	//media
 	media=soma/tamanho;
 	printf("\nMedia: %.2f",media);
@@ -91,6 +93,7 @@ int main()//programa principal
 	//moda
 
 	int quantRepet=1;
+	int acumulo=0;
 	for(i=1;i<tamanho;i++)
 	{
 		if(amostra[i-1]!=amostra[i])
@@ -103,7 +106,6 @@ int main()//programa principal
 		printf("\nNao ha moda");
 	}else{
 		int matRepet[2][quantRepet];
-		int acumulo=0;
 		j=0;
 		for(i=1;i<tamanho;i++)
 		{
@@ -119,6 +121,10 @@ int main()//programa principal
 					if((amostra[tamanho-1]==amostra[tamanho-2])&&(i==tamanho-1))
 					{
 						acumulo--;
+					}
+					if(amostra[tamanho-1]==amostra[tamanho-2])
+					{
+						matRepet[2][j+1]=1;	
 					}
 					matRepet[2][j]=i-acumulo;
 					if(matRepet[2][moda]<matRepet[2][j])
@@ -171,13 +177,26 @@ int main()//programa principal
 		}
 		
 	}
+	//definindo classe inicial e final
+	
+	acumulo=0;
+	for(l=0;l<k;l++)
+	{
+		tabela[l][0]=amostra[0]+acumulo;
+		acumulo+=atc;
+		tabela[l][1]=amostra[0]+acumulo-1;
+			
+	
+	}
 
 	printf("\n\n");
 	  
-	printf("  CI      CS     FI    XI    FR    FCA    FCI    FCS    \n");
-    for(l=0;l<5;l++) 
+	printf("    CI      CS     FI    XI    FR    FCA    FCI    FCS    \n");
+    for(l=0;l<k;l++) 
       {for(c=0;c<8;c++) 
-         {printf("  %.2f",tabela[l][c]);        
+         {
+         	
+		 printf("    %.2f", tabela[l][c]);        
          }
          printf("\n\n");
 	  }
