@@ -2,9 +2,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#include<iosotrem>
+//#include<iosotrem>
 /*************************************************************
-DescriÁ„o do Algoritmo:
+Descri√ß√£o do Algoritmo:
 Disciplina: Algoritmo II
 Professor: Leonair Neves de Sousa
 Alunos: Joelma Silva Campos Godoy
@@ -17,21 +17,27 @@ Data da entrega: 10/08/2022
 
 int main()//programa principal
 {	
-	int amostra[6],l,c,cont=1,primeiro=0,aux,menor,i,at,atc;
+	int l,c,cont=1,primeiro=0,aux,menor,i,at,atc;
 	int moda,a,j,v2[6],maior;
 	float tabela[5][8],k,soma=0,media=0,mediana=0;
-	int tamanho = sizeof(amostra)/sizeof(amostra[0]);
+	int tamanho;
+	
+	printf("Ol√°, para iniciar a constru√ß√£o da sua tabela de frequ√™ncia insira o numero de elementos da amostra:");
+	scanf("%d", &tamanho);
+	
+	int amostra[tamanho];
+	
+	for(i=0; i<tamanho; i++)
+	{
+		printf("Insira o elemento [%d] da amostra= ",i+1);
+		scanf("%d", &amostra[i]);
+		soma+=amostra[i];
+	}
 	
 	for(i=0;i<tamanho;i++)
 	{
-		printf("Insira os elementos da amostra[%d]= ",i+1);
-		scanf("%d",&amostra[i]);
-		soma+=amostra[i];
-	}
-	for(i=0;i<tamanho;i++)
-	{
-		printf(" %d",amostra[i]);
-		}		
+		printf(" %d", amostra[i]);
+	}		
 		
 	while (cont <= tamanho)
 	{
@@ -56,83 +62,115 @@ int main()//programa principal
 	{
 		printf(" %d", amostra[i]);
 	}
+	
 	printf("\n");
+	
 	k=ceil(sqrt(tamanho));
-	printf("K e igual: %.2f\n",k);
+	printf("\nK e igual: %.2f",k);
 	at=amostra[tamanho-1]-amostra[0];
-	printf("AT e igual: %d\n",at);
+	printf("\nAT e igual: %d",at);
 	atc=ceil(at/k);
-	printf("ATC e igual: %d\n",atc);
+	printf("\nATC e igual: %d",atc);
 	//media
 	media=soma/tamanho;
-	printf("\nMedia: %.2f\n",media);
+	printf("\nMedia: %.2f",media);
+	
 	//mediana
-	if(tamanho%2)
+	
+	if(tamanho%2==1)
 	{
-		mediana=amostra[tamanho/2];
+		mediana=amostra[(tamanho-1)/2];
 	}
 	else
 	{
-		mediana=((float)amostra[tamanho/2-1]+amostra[tamanho/2])/2;
+		mediana=((float)(amostra[(tamanho/2)-1]+amostra[tamanho/2]))/2;
 	}
-	printf("Mediana: %.2f\n",mediana);
-	//moda
-	//vetor 2 define as repetiÁıes, deixando primeiro todas iguais a 0
-	for(i=0;i<amostra;i++){
-			v2[i]=0;
-	}
-	//verificando se dois numeros s„o iguais, caso sim, aumenta no vetor repetiÁıes
-	for(i=0;i<amostra;i++){
-		for(j=1;j<amostra;j++){
-			if((amostra[i])==v2[j]){
-				v2[i]=v2[i]+1;
-			}
-			
-		}
-	}
-	//determinando qual È o maior numero de repetiÁıes
-	maior=0
-	for(i=0;i<amostra;i++){
-		if(v2[i]>maior){
-			maior=v2[i];
-		}
-	}
-	//verificando o numero mais repetido	
-	for(i=0;i<amostra;i++){
-		if(v2[i]==maior){
-			moda=i;
-		}
-	}
-	printf("\nModa: %d",amostra[moda]);
 	
-	/*for(l=0;l<5;l++) 
-      {for(c=0;c<8;c++) 
-         {if(c==0)
-            {
-				(primeiro,l+1,c+1);
-            	scanf("%f",&tabela[l][c]);
-		    }*/
-		 /* if(c==1)
-		    {matriz[l][c]=matriz[l][0]*0.1;
-		    }
-		  if(c==2)
-		    {matriz[l][c]=matriz[l][0]*1.05;
-		    }
-		  if(c==3)
-		    {do
-		       {printf("\nInforme quantidade de parcela entre[1 e 3]: ");
-                scanf("%f",&matriz[l][c]);
-                if (matriz[l][c]<1 ||matriz[l][c]>3)
-                  {printf("N?mero de parcela invalida!!\n");
-				  }
-			   }while (tabela[l][c]<1 ||tabela[l][c]>3);
-		    }
-		  if (c==4)  
-		     {tabela[l][c]=tabela[l][2]/tabela[l][3];
-			 }
-		  
-         }*/
-	  }
+	printf("\nMediana: %.2f",mediana);
+	
+	//moda
+
+	int quantRepet=1;
+	for(i=1;i<tamanho;i++)
+	{
+		if(amostra[i-1]!=amostra[i])
+		{
+			quantRepet++;
+		}
+	}
+	if(quantRepet==tamanho)
+	{
+		printf("\nNao ha moda");
+	}else{
+		int matRepet[2][quantRepet];
+		int acumulo=0;
+		j=0;
+		for(i=1;i<tamanho;i++)
+		{
+			if((amostra[i-1]!=amostra[i])||((amostra[tamanho-1]==amostra[tamanho-2])&&(i==tamanho-1)))
+			{
+				matRepet[1][j]=amostra[i-1];
+				if(j==0)
+				{
+					matRepet[2][j]=i;
+					moda=j;
+				}else{
+					acumulo+=matRepet[2][j-1];
+					if((amostra[tamanho-1]==amostra[tamanho-2])&&(i==tamanho-1))
+					{
+						acumulo--;
+					}
+					matRepet[2][j]=i-acumulo;
+					if(matRepet[2][moda]<matRepet[2][j])
+					{
+						moda=j;
+					}
+				}
+				j++;
+			}
+		}
+		int outrasModas=0;
+		for(j=0;j<quantRepet;j++)
+		{
+		 	if(matRepet[2][moda]==matRepet[2][j])
+					{
+						outrasModas++;
+					}
+		}
+		int vetOutrasModas[outrasModas];
+		i=0;
+		for(j=0;j<quantRepet;j++)
+		{
+		 	if(matRepet[2][moda]==matRepet[2][j])
+					{
+						 vetOutrasModas[i]=matRepet[1][j];
+						 i++;	
+					}
+		}
+		if(outrasModas* matRepet[2][moda]==tamanho)
+		{
+			printf("\nNao ha moda");
+		}else{
+			switch (outrasModas)
+			{
+				case 1:
+					printf("A moda e %d", matRepet[2][moda]);
+					break;
+				default:
+					printf("\nAs modas sao  ");
+					for(i=0;i<outrasModas;i++)
+					{
+						(i!=outrasModas-1&&i!=0)? printf(", "): (i==outrasModas-1)? printf(" e "): printf("");
+						printf("%d",vetOutrasModas[i]);
+						
+					}		
+			}	
+		}
+		
+	}
+
+	printf("\n\n");
+	  
 	printf("   CI   CS   FI  XI  FR  FCA  FCI  FCS    \n");
     for(l=0;l<5;l++) 
       {for(c=0;c<8;c++) 
@@ -142,10 +180,3 @@ int main()//programa principal
 	  }
 	return 0;
 }
-}
-		
-		
-		
-	
-	
-
