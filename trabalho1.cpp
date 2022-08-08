@@ -185,13 +185,29 @@ int main()//programa principal
 		tabela[l][0]=amostra[0]+acumulo;
 		acumulo+=atc;
 		tabela[l][1]=amostra[0]+acumulo-1;
-			
-	
+		tabela[l][3]=(tabela[l][0]+tabela[l][1])/2;
+		tabela[l][6]=tabela[l][0]-0.5;
+		tabela[l][7]=tabela[l][1]+0.5;
+		
 	}
-
+	acumulo=0;
+	for(l=0;l<k;l++)
+	{   
+	    tabela[l][2]=0;
+		for(i=0;i<tamanho;i++)
+		{
+			if(amostra[i]>=tabela[l][0]&&amostra[i]<=tabela[l][1])
+			{
+				tabela[l][2]++;
+			}
+		}
+		tabela[l][4]=(tabela[l][2]*100)/tamanho;
+		acumulo+=tabela[l][2];
+		tabela[l][5]=acumulo;
+	}
 	printf("\n\n");
 	  
-	printf("    CI      CS     FI    XI    FR    FCA    FCI    FCS    \n");
+	printf("    CI      CS      FI      XI      FR       FCA     FCI     FCS    \n");
     for(l=0;l<k;l++) 
       {for(c=0;c<8;c++) 
          {
