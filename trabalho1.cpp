@@ -132,9 +132,11 @@ int main()//programa principal
 		int outrasModas=0;
 		for(j=0;j<quantRepet;j++)
 		{
+			printf("\nR=%d",matRepet[2][j]);
 		 	if(matRepet[2][moda]==matRepet[2][j])
 					{
 						outrasModas++;
+						printf("\nM=%d",outrasModas);
 					}
 		}
 		int vetOutrasModas[outrasModas];
@@ -154,7 +156,7 @@ int main()//programa principal
 			switch (outrasModas)
 			{
 				case 1:
-					printf("A moda e %d", matRepet[2][moda]);
+					printf("\nA moda e %d", matRepet[1][moda]);
 					break;
 				default:
 					printf("\nAs modas sao  ");
@@ -163,7 +165,8 @@ int main()//programa principal
 						(i!=outrasModas-1&&i!=0)? printf(", "): (i==outrasModas-1)? printf(" e "): printf("");
 						printf("%d",vetOutrasModas[i]);
 						
-					}		
+					}	
+					break;	
 			}	
 		}
 		
@@ -171,10 +174,10 @@ int main()//programa principal
 
 	printf("\n\n");
 	  
-	printf("   CI   CS   FI  XI  FR  FCA  FCI  FCS    \n");
+	printf("  CI      CS     FI    XI    FR    FCA    FCI    FCS    \n");
     for(l=0;l<5;l++) 
       {for(c=0;c<8;c++) 
-         {printf("   %.2f",tabela[l][c]);        
+         {printf("  %.2f",tabela[l][c]);        
          }
          printf("\n\n");
 	  }
