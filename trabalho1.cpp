@@ -8,10 +8,10 @@ Descrição do Algoritmo:
 Disciplina: Algoritmo II
 Professor: Leonair Neves de Sousa
 Alunos: Joelma Silva Campos Godoy
-		Gabriel Acassio
+        Gabriel Acassio Correia
 Turma: 2021/2
-RGA: 20211153001
-	 2021
+RGA: 202115310001
+     202113100049
 Data da entrega: 10/08/2022
 **************************************************************/
 
