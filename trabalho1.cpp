@@ -2,22 +2,20 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-#include<locale.h>
 
 /*************************************************************
 Descrição do Algoritmo:
 Disciplina: Algoritmo II
 Professor: Leonair Neves de Sousa
 Alunos: Joelma Silva Campos Godoy
-		Gabriel Acassio
+	Gabriel Acassio Correia
 Turma: 2021/2
-RGA: 20211153001
-	 2021
+RGA: 202115310001
+     202111310049
 Data da entrega: 10/08/2022
 **************************************************************/
 void imprimir(float tabela[][8], int k, int maiorFI)
 {
-	setlocale(LC_ALL,"Portuguese");
 	int i,j;
 	printf("    CI      CS      FI      XI      FR       FCA     FCI     FCS    \n");
     	for(l=0;l<k;l++) 
@@ -61,7 +59,6 @@ void imprimir(float tabela[][8], int k, int maiorFI)
 }
 int main()//programa principal
 {	
-	setlocale(LC_ALL,"Portuguese");
 	int k,l,c,cont=1,primeiro=0,aux,menor,i,at,atc;
 	int moda,a,j,v2[6],maior;
 	float soma=0,media=0,mediana=0;
