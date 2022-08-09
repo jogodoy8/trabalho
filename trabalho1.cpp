@@ -14,7 +14,49 @@ RGA: 20211153001
 	 2021
 Data da entrega: 10/08/2022
 **************************************************************/
-
+void imprimir(float tabela[][8], int k, int maiorFI)
+{
+	int i,j;
+	printf("    CI      CS      FI      XI      FR       FCA     FCI     FCS    \n");
+    	for(l=0;l<k;l++) 
+    	  {for(c=0;c<8;c++) 
+      	   {
+         	
+			 printf("    %.2f", tabela[l][c]);        
+           }
+        	 printf("\n\n");
+	   }
+	  
+	//Grafico
+	
+		int corGraf[k-1];
+		printf("\n\n\n");
+		for(i=0;i<k;i++)
+		{
+			corGraf[i]= rand()%9+1;	
+		}
+		for(j=maiorFI+1;j>=0;j--)
+		{
+	  	  for(i=0;i<k;i++)
+		{
+			if(tabela[i][2]>=j){
+				textcolor(corGraf[i]);
+				if(tabela[i][2]==j)
+				{
+					printf(" %.f ",tabela[i][2]);	
+				}else
+				{
+					printf("%c%c%c", 178, 178,178);	
+				}
+			}else{
+				printf("   ");
+			}
+		}
+		printf("\n");
+	}
+	
+	
+}
 int main()//programa principal
 {	
 	int k,l,c,cont=1,primeiro=0,aux,menor,i,at,atc;
@@ -216,44 +258,7 @@ int main()//programa principal
 	}
 	printf("\nMaiorFI: %d", maiorFI);
 	printf("\n\n");
-	  
-	printf("    CI      CS      FI      XI      FR       FCA     FCI     FCS    \n");
-    for(l=0;l<k;l++) 
-      {for(c=0;c<8;c++) 
-         {
-         	
-		 printf("    %.2f", tabela[l][c]);        
-         }
-         printf("\n\n");
-	  }
-	  
-	//Grafico
-	
-	int corGraf[k-1];
-	printf("\n\n\n");
-	for(i=0;i<k;i++)
-	{
-		corGraf[i]= rand()%9+1;	
-	}
-	for(j=maiorFI+1;j>=0;j--)
-	{
-	    for(i=0;i<k;i++)
-		{
-			if(tabela[i][2]>=j){
-				textcolor(corGraf[i]);
-				if(tabela[i][2]==j)
-				{
-					printf(" %.f ",tabela[i][2]);	
-				}else
-				{
-					printf("%c%c%c", 178, 178,178);	
-				}
-			}else{
-				printf("   ");
-			}
-		}
-		printf("\n");
-	}
+	imprimir(tabela, k, maiorFI);
 	
 	return 0;
 }
