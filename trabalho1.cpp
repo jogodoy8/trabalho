@@ -24,42 +24,32 @@ void imprimeModa(int tamanho,int amostra[])
 			quantRepet++;
 		}
 	}
-	int acumulo=0, moda;
+	int acumulo=0, moda=0;
 	if(quantRepet==tamanho)
 	{
 		printf("\n Nao ha moda");
 	}
 	else
 	{
-		int matRepet[2][quantRepet];
-		j=0;
-		for(i=1;i<tamanho;i++)
-		{
-			if((amostra[i-1]!=amostra[i])||((amostra[tamanho-1]==amostra[tamanho-2])&&(i==tamanho-1)))
+		int matRepet[2][quantRepet], cont=0;
+		i=0;
+		while(i<tamanho)
+		{ 
+			matRepet[1][cont]=0;
+			for(j=0; j<tamanho; j++)
 			{
-				matRepet[0][j]=amostra[i-1];
-				if(j==0)
+				if(amostra[i]==amostra[j])
 				{
-					matRepet[1][j]=i;
-					moda=j;
-				}else{
-					acumulo+=matRepet[1][j-1];
-					if(amostra[tamanho-1]!=amostra[tamanho-2])
-					{
-						matRepet[1][j+1]=1;	
-					}
-					else if(matRepet[1])
-					{
-						acumulo--;	
-					}
-					matRepet[1][j]=i-acumulo;
-					if(matRepet[1][moda]<matRepet[1][j])
-					{
-						moda=j;
-					}
+					matRepet[0][cont]=amostra[i];
+					matRepet[1][cont]++;
 				}
-				j++;
 			}
+			i+=matRepet[1][cont]-1;
+			cont++;
+			if(matRepet[1][moda]<matRepet[1][j])
+			{
+				moda=j;
+			}		
 		}
 		int outrasModas=0;
 		for(j=0;j<quantRepet;j++)
