@@ -1,4 +1,4 @@
-//#include<conio2.h>
+#include<conio2.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
@@ -180,12 +180,16 @@ int main()//programa principal
 	//definindo ca tagbela
 	
 	acumulo=0;
+	int maiorFI=0;
 	for(l=0;l<k;l++)
 	{
 		tabela[l][0]=amostra[0]+acumulo;
 		acumulo+=atc;
 		tabela[l][1]=tabela[l][0]+atc-1;
-		tabela[k-1][1]=amostra[tamanho-1];
+		if (tabela[k-1][1]<amostra[tamanho-1])
+		{
+			tabela[k-1][1]=amostra[tamanho-1];
+		}		
 		tabela[l][3]=(tabela[l][0]+tabela[l][1])/2;
 		tabela[l][6]=tabela[l][0]-0.5;
 		tabela[l][7]=tabela[l][1]+0.5;
@@ -202,10 +206,15 @@ int main()//programa principal
 				tabela[l][2]++;
 			}
 		}
+		if(maiorFI<tabela[l][2])
+		{
+			maiorFI=tabela[l][2];
+		}
 		tabela[l][4]=(tabela[l][2]*100)/tamanho;
 		acumulo+=tabela[l][2];
 		tabela[l][5]=acumulo;
 	}
+	printf("\nMaiorFI: %d", maiorFI);
 	printf("\n\n");
 	  
 	printf("    CI      CS      FI      XI      FR       FCA     FCI     FCS    \n");
@@ -220,18 +229,18 @@ int main()//programa principal
 	  
 	//Grafico
 	
-	int maiorFI=2,corGraf[k-1];
+	int corGraf[k-1];
 	printf("\n\n\n");
 	for(i=0;i<k;i++)
 	{
 		corGraf[i]= rand()%9+1;	
 	}
-	for(j=tabela[maiorFI][2]+1;j>=0;j--)
+	for(j=maiorFI+1;j>=0;j--)
 	{
 	    for(i=0;i<k;i++)
 		{
 			if(tabela[i][2]>=j){
-				textcolor(corGraf[k]);
+				textcolor(corGraf[i]);
 				if(tabela[i][2]==j)
 				{
 					printf(" %.f ",tabela[i][2]);	
