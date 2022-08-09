@@ -2,16 +2,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
-//#include<iosotrem>
+
 /*************************************************************
 Descrição do Algoritmo:
 Disciplina: Algoritmo II
 Professor: Leonair Neves de Sousa
 Alunos: Joelma Silva Campos Godoy
-        Gabriel Acassio Correia
+		Gabriel Acassio
 Turma: 2021/2
-RGA: 202115310001
-     202113100049
+RGA: 20211153001
+	 2021
 Data da entrega: 10/08/2022
 **************************************************************/
 
@@ -177,14 +177,15 @@ int main()//programa principal
 		}
 		
 	}
-	//definindo classe inicial e final
+	//definindo ca tagbela
 	
 	acumulo=0;
 	for(l=0;l<k;l++)
 	{
 		tabela[l][0]=amostra[0]+acumulo;
 		acumulo+=atc;
-		tabela[l][1]=amostra[0]+acumulo-1;
+		tabela[l][1]=tabela[l][0]+atc-1;
+		tabela[k-1][1]=amostra[tamanho-1];
 		tabela[l][3]=(tabela[l][0]+tabela[l][1])/2;
 		tabela[l][6]=tabela[l][0]-0.5;
 		tabela[l][7]=tabela[l][1]+0.5;
@@ -218,13 +219,19 @@ int main()//programa principal
 	  }
 	  
 	//Grafico
-	int maiorFI=2;
+	
+	int maiorFI=2,corGraf[k-1];
 	printf("\n\n\n");
+	for(i=0;i<k;i++)
+	{
+		corGraf[i]= rand()%9+1;	
+	}
 	for(j=tabela[maiorFI][2]+1;j>=0;j--)
 	{
 	    for(i=0;i<k;i++)
 		{
 			if(tabela[i][2]>=j){
+				textcolor(corGraf[k]);
 				if(tabela[i][2]==j)
 				{
 					printf(" %.f ",tabela[i][2]);	
