@@ -216,5 +216,28 @@ int main()//programa principal
          }
          printf("\n\n");
 	  }
+	  
+	//Grafico
+	int maiorFI=2;
+	printf("\n\n\n");
+	for(j=tabela[maiorFI][2]+1;j>=0;j--)
+	{
+	    for(i=0;i<k;i++)
+		{
+			if(tabela[i][2]>=j){
+				if(tabela[i][2]==j)
+				{
+					printf(" %.f ",tabela[i][2]);	
+				}else
+				{
+					printf("%c%c%c", 178, 178,178);	
+				}
+			}else{
+				printf("   ");
+			}
+		}
+		printf("\n");
+	}
+	
 	return 0;
 }
