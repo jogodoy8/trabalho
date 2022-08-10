@@ -208,7 +208,7 @@ void ImprimeModa(int *tamanho,int amostra[])
 		}
 	}
 	int acumulo=0, moda;
-	if(quantRepet==*tamanho)//define automaticamente se há ou não moda para o caso mais simples
+	if(quantRepet==*tamanho||quantRepet==1)//define automaticamente se há ou não moda para o caso mais simples
 	{
 		printf(" AMODAL");
 	}
