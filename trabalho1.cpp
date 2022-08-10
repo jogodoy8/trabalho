@@ -43,7 +43,9 @@ void imprimeModa(int tamanho,int amostra[])
 				{
 					matRepet[1][j]=i;
 					moda=j;
-				}else{
+				}
+				else
+				{
 					acumulo+=matRepet[1][j-1];
 					if(amostra[tamanho-1]!=amostra[tamanho-2])
 					{
@@ -66,24 +68,26 @@ void imprimeModa(int tamanho,int amostra[])
 		for(j=0;j<quantRepet;j++)
 		{	
 		 	if(matRepet[1][moda]==matRepet[1][j])
-					{
-						outrasModas++;
-					}
+			{
+				outrasModas++;
+			}
 		}
 		int vetOutrasModas[outrasModas];
 		i=0;
 		for(j=0; j<quantRepet; j++)
 		{
 		 	if(matRepet[1][moda]==matRepet[1][j])
-					{
-						 vetOutrasModas[i]=matRepet[0][j];
-						 i++;	
-					}
+			{
+				vetOutrasModas[i]=matRepet[0][j];
+				i++;	
+			}
 		}
 		if(outrasModas* matRepet[1][moda]==tamanho)
 		{
 			printf("\n Nao ha moda");
-		}else{
+		}
+		else
+		{
 			switch (outrasModas)
 			{
 				case 1:
@@ -210,15 +214,15 @@ int main()//programa principal
 	printf("|    CI    |   CS     |    FI    |    XI    |    FR     |   FCA    |   FCI    |    FCS    |\n");
 	printf("|__________|__________|__________|__________|___________|__________|__________|___________|\n");
 	printf("|          |          |          |          |           |          |          |           |\n");
-    for(i=0; i<k; i++) 
-    {
-    	printf("|");
+    	for(i=0; i<k; i++) 
+  	{
+    		printf("|");
 		for(j=0; j<8; j++) 
 		{ 
-    		(j==4)? printf("%8.2f%%  |", tabela[i][j]) : (j==7)? printf("% 8.2f   |", tabela[i][j]) : printf("%8.2f  |", tabela[i][j]);        
+    			(j==4)? printf("%8.2f%%  |", tabela[i][j]) : (j==7)? printf("% 8.2f   |", tabela[i][j]) : printf("%8.2f  |", tabela[i][j]);        
 		}
-        printf("\n|__________|__________|__________|__________|___________|__________|__________|___________|\n");
-        (i!=k-1)? printf("|          |          |          |          |           |          |          |           |\n") :printf("\n");
+        	printf("\n|__________|__________|__________|__________|___________|__________|__________|___________|\n");
+        	(i!=k-1)? printf("|          |          |          |          |           |          |          |           |\n") :printf("\n");
 	}
 	  
 	//Grafico
@@ -231,9 +235,9 @@ int main()//programa principal
 	}
 	for(j=maiorFI+1; j>=0; j--)
 	{
-	    gotoxy(43-(k*5/2), 21+maiorFI+k*3-j);
-	    for(i=0; i<k; i++)
-		{   
+		gotoxy(43-(k*5/2), 21+maiorFI+k*3-j);
+	    	for(i=0; i<k; i++)
+	    	{   
 			if(tabela[i][2]>=j){
 				textcolor(corGraf[i]);
 				if(tabela[i][2]==j)
