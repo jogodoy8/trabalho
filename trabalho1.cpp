@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include <windows.h>
 
 /*************************************************************
 Descrição do Algoritmo:
@@ -18,8 +19,14 @@ Data da entrega: 10/08/2022
 //programa principal
 int main()
 {	
+	//força full screen ao iniciar o algoeitimo
+	keybd_event(VK_MENU  , 0x36, 0, 0);
+	keybd_event(VK_RETURN, 0x1C, 0, 0);
+	keybd_event(VK_RETURN, 0x1C, KEYEVENTF_KEYUP, 0);
+	keybd_event(VK_MENU  , 0x38, KEYEVENTF_KEYUP, 0);
+	
 	int tamanho;
-	printf("Ola, para iniciar a construção da sua tabela de frequência insira o numero de elementos da amostra: ");
+	gotoxy(30,3);printf("Ola, para iniciar a construção da sua tabela de frequencia insira o numero de elementos da amostra: ");
 	scanf("%d", &tamanho);
 	int amostra[tamanho];
 	
@@ -27,6 +34,7 @@ int main()
 	float soma=0;
 	for(i=0; i<tamanho; i++)
 	{
+		gotoxy(30,4+i);
 		printf("Insira o elemento [%d] da amostra= ", i+1);
 		scanf("%d", &amostra[i]);
 		soma+=amostra[i];
@@ -73,7 +81,7 @@ int main()
 	}
 	
 	//moda
-	void ImprimeModa(int *tamanho, int amostra[]);//declara uma função local para calcular a moda
+	void ImprimeModa(int *tamanho,int amostra[]);//declara uma função local para calcular a moda
 		
 	//definindo a tabela	
 	float tabela[k][8];
@@ -109,36 +117,51 @@ int main()
 
 	//imprimindo o resultado
 	system("cls");
-	printf("\n\n\n Amostra: [");
+	gotoxy(78,2);printf("AMOSTRA");
+	gotoxy(82-(tamanho*3/2),4);
 	for(i=0; i<tamanho; i++)
 	{
-		(i==tamanho-1)?  printf("%d]", amostra[i]) : printf("%d, ", amostra[i]);//imprime virgula para os priemiros numeros e o fim do squarebracket parao ultimo numero
+		(amostra[i]>9)? printf("%d ", amostra[i]): printf("%d  ", amostra[i]) ;
 	}
-	printf("\n Media amostral: %4.2f \n Mediana: %4.2f", media, mediana);
-	ImprimeModa(&tamanho, amostra);
-	printf("\n");//imprime o cabeçalho da tabela 
-	printf(" _________________________________________________________________________________________\n");
-	printf("|                     |          |          |           |          |                      |\n");
-	printf("|       CLASSES       |          |          |           |          | FRONTEIRA DE CLASSES |\n");
-	printf("|_____________________|__________|__________|___________|__________|______________________|\n");
-	printf("|          |          |          |          |           |          |          |           |\n");
-	printf("|    CI    |   CS     |    FI    |    XI    |    FR     |   FCA    |   FCI    |    FCS    |\n");
-	printf("|__________|__________|__________|__________|___________|__________|__________|___________|\n");
-	printf("|          |          |          |          |           |          |          |           |\n");
+	gotoxy(37,6);printf(" MEDIA AMOSTRAL: %4.2f", media);
+	gotoxy(37,7);printf(" MEDIANA : %4.2f", mediana);
+	gotoxy(37,8);ImprimeModa(&tamanho, amostra);
+	gotoxy(37,9);printf(" _________________________________________________________________________________________");
+	gotoxy(37,10);printf("|                     |          |          |           |          |                      |");
+	gotoxy(37,11);printf("|       CLASSES       |          |          |           |          | FRONTEIRA DE CLASSES |");
+	gotoxy(37,12);printf("|_____________________|__________|__________|___________|__________|______________________|");
+	gotoxy(37,13);printf("|          |          |          |          |           |          |          |           |");
+	gotoxy(37,14);printf("|    CI    |   CS     |    FI    |    XI    |    FR     |   FCA    |   FCI    |    FCS    |");
+	gotoxy(37,15);printf("|__________|__________|__________|__________|___________|__________|__________|___________|");
+	gotoxy(37,16);printf("|          |          |          |          |           |          |          |           |");
+	int l=0;
   	for(i=0; i<k; i++)//imrpime uma nova linha na tabela para cada classe k
   	{
-    	printf("|");
+  		gotoxy(37,17+l);
+    		printf("|");
 		for(j=0; j<8; j++) 
 		{ 
-    		(j==4)? printf("%8.2f%%  |", tabela[i][j]) : (j==7)? printf("% 8.2f   |", tabela[i][j]) : printf("%8.2f  |", tabela[i][j]);        
+    			(j==4)? printf("%8.2f%%  |", tabela[i][j]) : (j==7)? printf("% 8.2f   |", tabela[i][j]) : printf("%8.2f  |", tabela[i][j]);        
 		}
-        printf("\n|__________|__________|__________|__________|___________|__________|__________|___________|\n");
-        (i!=k-1)? printf("|          |          |          |          |           |          |          |           |\n") :printf("\n");
+		l++;
+		gotoxy(37, 17+l);
+        	printf("|__________|__________|__________|__________|___________|__________|__________|___________|");
+        	l++;
+        	gotoxy(37,17+l);
+        	if (i!=k-1)
+		{
+			printf("|          |          |          |          |           |          |          |           |");
+			l++;	
+		} 
+		else
+		{
+		 	l++;
+		}
 	}
 	  
 	//Grafico
-	printf("\n\n");
-	printf("                                        HISTOGRAMA");
+    	gotoxy(77 , 18+k*3);
+	printf("HISTOGRAMA");
 	int corGraf[k];//vetor para armazenar as cores de cada coluna
 	for(i=0; i<k; i++)//atribui k cores para as k colunas
 	{
@@ -146,9 +169,9 @@ int main()
 	}
 	for(j=2*maiorFI+2; j>=0; j--)//define a quantidade de linhas do histograma como j, onde cada unidade de FI ocupa 2 caracteres. j é decrementado pois se imprime do topo para a base
 	{
-		gotoxy(45-(k*5/2), 21+2*maiorFI+k*3-j);//centraliza o histograma levando em conta k(numero de colunas) e maiorFI(maior coluna)
-	    for(i=0; i<k; i++)//define o numero de coluna como k, o numero de classses
-	    {   
+		gotoxy(82-(k*5/2), 21+2*maiorFI+k*3-j);//centraliza o histograma levando em conta k(numero de colunas) e maiorFI(maior coluna)
+	    	for(i=0; i<k; i++)//define o numero de coluna como k, o numero de classses
+	    	{   
 			if(2*tabela[i][2]>=j)//verifica se a camada da coluna deve ser preenchida ou vazia, a coluna possuí largura de cinco caracteres
 			{
 				textcolor(corGraf[i]);//define a cor de acordo com o i(indice da coluna) 
@@ -174,7 +197,7 @@ int main()
 }
 
 //função para encontrar e imprimir a moda
-void ImprimeModa(int *tamanho, int amostra[])
+void ImprimeModa(int *tamanho,int amostra[])
 {
 	int i, j, quantRepet=1;
 	for(i=1; i<*tamanho; i++)
@@ -187,7 +210,7 @@ void ImprimeModa(int *tamanho, int amostra[])
 	int acumulo=0, moda;
 	if(quantRepet==*tamanho)//define automaticamente se há ou não moda para o caso mais simples
 	{
-		printf("\n Nao ha moda");
+		printf(" AMODAL");
 	}
 	else
 	{
@@ -229,15 +252,15 @@ void ImprimeModa(int *tamanho, int amostra[])
 		}
 		if(outrasModas* matRepet[1][moda]==*tamanho)//verifica se todos os numeros tem a mesma quantidade de repetições
 		{
-			printf("\n Nao ha moda");
+			printf(" AMODAL");
 		}
 		else
 		{
 			switch(outrasModas)
 			{
 				case 1:
-					printf("\n A moda e %d", matRepet[0][moda]);
-					printf(". Repetida %d vezes.", matRepet[1][moda]);
+					printf(" A MODA E %d", matRepet[0][moda]);
+					printf(". REPETIDA %d VEZES.", matRepet[1][moda]);
 					break;
 				default:
 					int vetOutrasModas[outrasModas];//como ha mais de uma moda o vetor armazena elas para posteriormente imprimi-las
@@ -250,13 +273,13 @@ void ImprimeModa(int *tamanho, int amostra[])
 							i++;	
 						}
 					}
-					printf("\n As modas sao ");
+					printf(" AS MODAS SAO ");
 					for(i=0;i<outrasModas;i++)
 					{
 						(i!=outrasModas-1&&i!=0)? printf(", "): (i==outrasModas-1)? printf(" e "): printf("");
 						printf("%d",vetOutrasModas[i]);
 					}
-					printf(". Repetidas %d vezes.", matRepet[1][moda]);	
+					printf(". REPETIDAS %d VEZES.", matRepet[1][moda]);	
 					break;	
 			}	
 		}
