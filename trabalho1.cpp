@@ -14,6 +14,7 @@ RGA: 202115310001
      202111310049
 Data da entrega: 10/08/2022
 **************************************************************/
+
 void imprimeModa(int tamanho,int amostra[])
 {
 	int i, j, quantRepet=1;
@@ -237,16 +238,16 @@ int main()//programa principal
 				textcolor(corGraf[i]);
 				if(tabela[i][2]==j)
 				{
-					printf(" %.f ", tabela[i][2]);	
+					printf("  %.f  ", tabela[i][2]);	
 				}
 				else
 				{
-					printf("%c%c%c", 178, 178, 178);	
+					printf("%c%c%c%c%C", 178, 178, 178, 178, 178);	
 				}
 			}
 			else
 			{
-				printf("   ");
+				printf("     ");
 			}
 		}
 		textcolor(7);
