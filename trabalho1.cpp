@@ -35,9 +35,9 @@ void imprimeModa(int tamanho,int amostra[])
 	{
 		int matRepet[2][quantRepet];//vetor que armazena na linha 0 o elemento da amostra e na linha 2 seu numero de repetições
 		j=0;
-		for(i=1; i<tamanho; i++)//conta as reptições comprando o emento i-1 com i
+		for(i=1; i<tamanho; i++)//conta as reptições comparando o elemento i-1 com i
 		{
-			if((amostra[i-1]!=amostra[i])||((amostra[tamanho-1]==amostra[tamanho-2])&&(i==tamanho-1)))//identifica a fronteira entre os elementos diferentes e para oultimo numero identicia se ele é igual ao anterior
+			if((amostra[i-1]!=amostra[i])||((amostra[tamanho-1]==amostra[tamanho-2])&&(i==tamanho-1)))//identifica a fronteira entre os elementos diferentes e para o ultimo numero identicia se ele é igual ao anterior
 			{
 				matRepet[0][j]=amostra[i-1];
 				if(j==0)
@@ -47,13 +47,13 @@ void imprimeModa(int tamanho,int amostra[])
 				}
 				else
 				{
-					acumulo+=matRepet[1][j-1];//acumulo guarda os valor das repetições anteriores 
+					acumulo+=matRepet[1][j-1];//guarda os valor das repetições anteriores 
 					if(amostra[tamanho-1]==amostra[tamanho-2]&&(i==tamanho-1))//verifica se os dois ultimos elementos são iguais e seo for esta no fim do vetor
 					{
 						acumulo--;
 					}
 					matRepet[1][j]=i-acumulo;
-					if(matRepet[1][moda]<matRepet[1][j])//extrai o numero com mais repetições
+					if(matRepet[1][moda]<matRepet[1][j])//armazena o numero com mais repetições
 					{
 						moda=j;
 					}
@@ -75,14 +75,14 @@ void imprimeModa(int tamanho,int amostra[])
 		}
 		else
 		{
-			switch(outrasModas)
+			switch(outrasModas)//imprime a moda, considerando que háuma moda ou que há mais de uma
 			{
 				case 1:
 					printf("\n A moda e %d", matRepet[0][moda]);
 					printf(". Repetida %d vezes.", matRepet[1][moda]);
 					break;
 				default:
-					int vetOutrasModas[outrasModas];//como ha mais de uma moda o vetor armazena elas para posteriormente imprimi-las
+					int vetOutrasModas[outrasModas];//como há mais de uma moda o vetor armazena elas para posteriormente imprimi-las
 					i=0;
 					for(j=0; j<quantRepet; j++)//encontra todas as modas
 					{
@@ -199,7 +199,7 @@ int main()
 	printf("\n\n\n Amostra: [");
 	for(i=0; i<tamanho; i++)
 	{
-		(i==tamanho-1)?  printf("%d]", amostra[i]) : printf("%d, ", amostra[i]);//imprime virgula para os priemiros numeros e o fim do squarebracket parao ultimo numero
+		(i==tamanho-1)?  printf("%d]", amostra[i]) : printf("%d, ", amostra[i]);//imprime vírgula para os primeiros numeros e o squarebracket "]" para o ultimo numero
 	}
 	printf("\n Media amostral: %4.2f \n Mediana: %4.2f", media, mediana);
 	imprimeModa(tamanho, amostra);
