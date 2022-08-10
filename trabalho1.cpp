@@ -231,7 +231,7 @@ int main()//programa principal
 	}
 	for(j=maiorFI+1; j>=0; j--)
 	{
-		gotoxy(43-k, 21+maiorFI+k*3-j);
+	    gotoxy(43-(k*5/2), 21+maiorFI+k*3-j);
 	    for(i=0; i<k; i++)
 		{   
 			if(tabela[i][2]>=j){
