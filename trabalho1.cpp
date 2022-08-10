@@ -9,14 +9,14 @@ Disciplina: Algoritmo II
 Professor: Leonair Neves de Sousa
 Alunos: Joelma Silva Campos Godoy
 	Gabriel Acassio Correia
-Turma: 2021/2
+Turma: 2021/3
 RGA: 202115310001
      202111310049
 Data da entrega: 10/08/2022
 **************************************************************/
 
 //função para encontrar e imprimir a moda
-void imprimeModa(int tamanho,int amostra[])
+void ImprimeModa(int tamanho,int amostra[])
 {
 	int i, j, quantRepet=1;
 	for(i=1; i<tamanho; i++)
@@ -202,7 +202,7 @@ int main()
 		(i==tamanho-1)?  printf("%d]", amostra[i]) : printf("%d, ", amostra[i]);//imprime vírgula para os primeiros numeros e o squarebracket "]" para o ultimo numero
 	}
 	printf("\n Media amostral: %4.2f \n Mediana: %4.2f", media, mediana);
-	imprimeModa(tamanho, amostra);
+	ImprimeModa(tamanho, amostra);
 	printf("\n");//imprime o cabeçalho da tabela 
 	printf(" _________________________________________________________________________________________\n");
 	printf("|                     |          |          |           |          |                      |\n");
