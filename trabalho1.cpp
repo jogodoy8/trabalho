@@ -73,7 +73,7 @@ int main()
 	}
 	
 	//moda
-	void ImprimeModa(int *tamanho,int amostra[]);//declara uma função local para calcular a moda
+	void ImprimeModa(int *tamanho, int amostra[]);//declara uma função local para calcular a moda
 		
 	//definindo a tabela	
 	float tabela[k][8];
@@ -174,7 +174,7 @@ int main()
 }
 
 //função para encontrar e imprimir a moda
-void ImprimeModa(int *tamanho,int amostra[])
+void ImprimeModa(int *tamanho, int amostra[])
 {
 	int i, j, quantRepet=1;
 	for(i=1; i<*tamanho; i++)
