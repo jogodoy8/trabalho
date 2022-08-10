@@ -15,96 +15,6 @@ RGA: 202115310001
 Data da entrega: 10/08/2022
 **************************************************************/
 
-//função para encontrar e imprimir a moda
-void ImprimeModa(int tamanho,int amostra[])
-{
-	int i, j, quantRepet=1;
-	for(i=1; i<tamanho; i++)
-	{
-		if(amostra[i-1]!=amostra[i])
-		{
-			quantRepet++;//verifica a quantidade de numeros diferentes da amostra
-		}
-	}
-	int acumulo=0, moda;
-	if(quantRepet==tamanho)//define automaticamente se há ou não moda para o caso mais simples
-	{
-		printf("\n Nao ha moda");
-	}
-	else
-	{
-		int matRepet[2][quantRepet];//vetor que armazena na linha 0 o elemento da amostra e na linha 2 seu numero de repetições
-		j=0;
-		for(i=1; i<tamanho; i++)//conta as reptições comparando o elemento i-1 com i
-		{
-			if((amostra[i-1]!=amostra[i])||((amostra[tamanho-1]==amostra[tamanho-2])&&(i==tamanho-1)))//identifica a fronteira entre os elementos diferentes e para o ultimo numero identicia se ele é igual ao anterior
-			{
-				matRepet[0][j]=amostra[i-1];
-				if(j==0)
-				{
-					matRepet[1][j]=i;
-					moda=j;
-				}
-				else
-				{
-					acumulo+=matRepet[1][j-1];//guarda os valor das repetições anteriores 
-					if(amostra[tamanho-1]==amostra[tamanho-2]&&(i==tamanho-1))//verifica se os dois ultimos elementos são iguais e seo for esta no fim do vetor
-					{
-						acumulo--;
-					}
-					matRepet[1][j]=i-acumulo;
-					if(matRepet[1][moda]<matRepet[1][j])//armazena o numero com mais repetições
-					{
-						moda=j;
-					}
-				}
-				j++;
-			}
-		}
-		int outrasModas=0;
-		for(j=0; j<quantRepet; j++)// verifica se há mais numeros com a mesma quantidade de repetições da moda
-		{	
-			if(matRepet[1][moda]==matRepet[1][j])
-			{
-				outrasModas++;
-			}
-		}
-		if(outrasModas* matRepet[1][moda]==tamanho)//verifica se todos os numeros tem a mesma quantidade de repetições
-		{
-			printf("\n Nao ha moda");
-		}
-		else
-		{
-			switch(outrasModas)//imprime a moda, considerando que háuma moda ou que há mais de uma
-			{
-				case 1:
-					printf("\n A moda e %d", matRepet[0][moda]);
-					printf(". Repetida %d vezes.", matRepet[1][moda]);
-					break;
-				default:
-					int vetOutrasModas[outrasModas];//como há mais de uma moda o vetor armazena elas para posteriormente imprimi-las
-					i=0;
-					for(j=0; j<quantRepet; j++)//encontra todas as modas
-					{
-						if(matRepet[1][moda]==matRepet[1][j])
-						{
-							vetOutrasModas[i]=matRepet[0][j];
-							i++;	
-						}
-					}
-					printf("\n As modas sao ");
-					for(i=0;i<outrasModas;i++)
-					{
-						(i!=outrasModas-1&&i!=0)? printf(", "): (i==outrasModas-1)? printf(" e "): printf("");
-						printf("%d",vetOutrasModas[i]);
-					}
-					printf(". Repetidas %d vezes.", matRepet[1][moda]);	
-					break;	
-			}	
-		}
-	}			
-}
-
 //programa principal
 int main()
 {	
@@ -161,6 +71,9 @@ int main()
 	{
 		mediana=((float)(amostra[(tamanho/2)-1]+amostra[tamanho/2]))/2;
 	}
+	
+	//moda
+	void ImprimeModa(int *tamanho,int amostra[]);//declara uma função local para calcular a moda
 		
 	//definindo a tabela	
 	float tabela[k][8];
@@ -199,10 +112,10 @@ int main()
 	printf("\n\n\n Amostra: [");
 	for(i=0; i<tamanho; i++)
 	{
-		(i==tamanho-1)?  printf("%d]", amostra[i]) : printf("%d, ", amostra[i]);//imprime vírgula para os primeiros numeros e o squarebracket "]" para o ultimo numero
+		(i==tamanho-1)?  printf("%d]", amostra[i]) : printf("%d, ", amostra[i]);//imprime virgula para os priemiros numeros e o fim do squarebracket parao ultimo numero
 	}
 	printf("\n Media amostral: %4.2f \n Mediana: %4.2f", media, mediana);
-	ImprimeModa(tamanho, amostra);
+	ImprimeModa(&tamanho, amostra);
 	printf("\n");//imprime o cabeçalho da tabela 
 	printf(" _________________________________________________________________________________________\n");
 	printf("|                     |          |          |           |          |                      |\n");
@@ -212,7 +125,7 @@ int main()
 	printf("|    CI    |   CS     |    FI    |    XI    |    FR     |   FCA    |   FCI    |    FCS    |\n");
 	printf("|__________|__________|__________|__________|___________|__________|__________|___________|\n");
 	printf("|          |          |          |          |           |          |          |           |\n");
-    for(i=0; i<k; i++)//imrpime uma nova linha na tabela para cada classe k
+  	for(i=0; i<k; i++)//imrpime uma nova linha na tabela para cada classe k
   	{
     	printf("|");
 		for(j=0; j<8; j++) 
@@ -258,4 +171,94 @@ int main()
 	}	
 	system("pause");
 	return 0;
+}
+
+//função para encontrar e imprimir a moda
+void ImprimeModa(int *tamanho,int amostra[])
+{
+	int i, j, quantRepet=1;
+	for(i=1; i<*tamanho; i++)
+	{
+		if(amostra[i-1]!=amostra[i])
+		{
+			quantRepet++;//verifica a quantidade de numeros diferentes da amostra
+		}
+	}
+	int acumulo=0, moda;
+	if(quantRepet==*tamanho)//define automaticamente se há ou não moda para o caso mais simples
+	{
+		printf("\n Nao ha moda");
+	}
+	else
+	{
+		int matRepet[2][quantRepet];//vetor que armazena na linha 0 o elemento da amostra e na linha 2 seu numero de repetições
+		j=0;
+		for(i=1; i<*tamanho; i++)//conta as reptições comprando o emento i-1 com i
+		{
+			if((amostra[i-1]!=amostra[i])||((amostra[*tamanho-1]==amostra[*tamanho-2])&&(i==*tamanho-1)))//identifica a fronteira entre os elementos diferentes e para oultimo numero identicia se ele é igual ao anterior
+			{
+				matRepet[0][j]=amostra[i-1];
+				if(j==0)
+				{
+					matRepet[1][j]=i;
+					moda=j;
+				}
+				else
+				{
+					acumulo+=matRepet[1][j-1];//acumulo guarda os valor das repetições anteriores 
+					if(amostra[*tamanho-1]==amostra[*tamanho-2]&&(i==*tamanho-1))//verifica se os dois ultimos elementos são iguais e seo for esta no fim do vetor
+					{
+						acumulo--;
+					}
+					matRepet[1][j]=i-acumulo;
+					if(matRepet[1][moda]<matRepet[1][j])//extrai o numero com mais repetições
+					{
+						moda=j;
+					}
+				}
+				j++;
+			}
+		}
+		int outrasModas=0;
+		for(j=0; j<quantRepet; j++)// verifica se há mais numeros com a mesma quantidade de repetições da moda
+		{	
+			if(matRepet[1][moda]==matRepet[1][j])
+			{
+				outrasModas++;
+			}
+		}
+		if(outrasModas* matRepet[1][moda]==*tamanho)//verifica se todos os numeros tem a mesma quantidade de repetições
+		{
+			printf("\n Nao ha moda");
+		}
+		else
+		{
+			switch(outrasModas)
+			{
+				case 1:
+					printf("\n A moda e %d", matRepet[0][moda]);
+					printf(". Repetida %d vezes.", matRepet[1][moda]);
+					break;
+				default:
+					int vetOutrasModas[outrasModas];//como ha mais de uma moda o vetor armazena elas para posteriormente imprimi-las
+					i=0;
+					for(j=0; j<quantRepet; j++)//encontra todas as modas
+					{
+						if(matRepet[1][moda]==matRepet[1][j])
+						{
+							vetOutrasModas[i]=matRepet[0][j];
+							i++;	
+						}
+					}
+					printf("\n As modas sao ");
+					for(i=0;i<outrasModas;i++)
+					{
+						(i!=outrasModas-1&&i!=0)? printf(", "): (i==outrasModas-1)? printf(" e "): printf("");
+						printf("%d",vetOutrasModas[i]);
+					}
+					printf(". Repetidas %d vezes.", matRepet[1][moda]);	
+					break;	
+			}	
+		}
+	}			
 }
